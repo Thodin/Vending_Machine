@@ -1,8 +1,10 @@
 use super::validateinput::validateinput;
 use super::{COCA_COLA, FANTA, PEPSI, SPRITE};
+
 use std::collections::HashMap;
 use std::thread::sleep;
 use std::time::Duration;
+
 pub fn buydrink(avail_drinks: &mut HashMap<&str, u32>) -> Result<(), String> {
     let mut drink_option = String::new();
     loop {
@@ -27,6 +29,8 @@ pub fn buydrink(avail_drinks: &mut HashMap<&str, u32>) -> Result<(), String> {
         );
         println!("5. Exit");
         let drink_choice = validateinput(&mut drink_option)?;
+
+        // We should have some error handling here if an invalid number (e.g. 6) is pressed.
         match drink_choice {
             1 => reduce_entry(avail_drinks, COCA_COLA),
             2 => reduce_entry(avail_drinks, PEPSI),
@@ -37,9 +41,12 @@ pub fn buydrink(avail_drinks: &mut HashMap<&str, u32>) -> Result<(), String> {
     }
     Ok(())
 }
+
 fn reduce_entry<'a>(avail_drinks: &mut HashMap<&'a str, u32>, drink_name: &'a str) {
     let count = avail_drinks.entry(drink_name).or_default();
     if *count >= 1 {
+        // So we don't check whether the user inserted any money and give him the drink?
+        // How generous of us :)
         println!("Insert the amount in the slot in 50seconds");
         sleep(Duration::new(10, 0));
         *count -= 1;

@@ -92,6 +92,7 @@ fn insert_money_inthe_slot(
 ) -> Result<(bool, [u32; 7]), String> {
     let price_in_cents = [5, 10, 20, 50, 100, 200, 500];
     let mut inserted_coins_image = [0, 0, 0, 0, 0, 0, 0];
+    // Unused variable?
     let _available_coins_in_machine = vendingmachine.available_coins_inv_image();
     let mut inserted_money_value = 0;
     loop {
